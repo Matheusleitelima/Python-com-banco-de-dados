@@ -1,0 +1,52 @@
+
+Alteração de tabela
+import sqlite3 as conector
+
+# Abertura de conexão e aquisição de cursor
+conexao = conector.connect("./meu_banco.db")
+cursor = conexao.cursor()
+
+# Execução do comando SQL: adiciona a coluna "motor" do tipo REAL na tabela "Veiculo"
+comando = '''ALTER TABLE Pessoa
+             ADD COLUMN motor REAL;'''
+
+cursor.execute(comando)  # Executa o comando
+
+# Efetivação do comando
+conexao.commit()
+
+# Fechamento das conexões
+cursor.close()
+conexao.close()
+
+
+Remoção de tabela e atualização
+
+import sqlite3 as conector
+
+# Abertura de conexão e aquisição de cursor
+conexao = conector.connect("./meu_banco.db")
+cursor = conexao.cursor()
+
+# Execução do comando SQL: remove a tabela Pessoa
+comando1 = '''DROP TABLE Pessoa'''
+cursor.execute(comando1) 
+
+# Execução do comando SQL: cria a tabela Pessoa com a coluna motor
+comando2 = '''CREATE TABLE Pessoa (
+                     cpf INTEGER NOT NULL,
+                     motor REAL NOT NULL,
+                     nome TEXT NOT NULL,
+                     nascimento DATE NOT NULL,
+                     oculos BOOLEAN NOT NULL,
+                     PRIMARY KEY (cpf)
+                 );'''
+cursor.execute(comando2)  # Executa o comando
+
+# Efetivação do comando
+conexao.commit()
+
+# Fechamento das conexões
+cursor.close()
+conexao.close()
+
