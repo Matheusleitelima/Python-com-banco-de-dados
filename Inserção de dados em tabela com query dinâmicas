@@ -25,7 +25,7 @@ try:
 
 
     comando = '''INSERT INTO Pessoa(cpf, motor, nome, nascimento, oculos) 
-                 VALUES (?, ?, ?, ?, ?)'''
+                 VALUES (?, ?, ?, ?, ?)#Demilitador(Todo SGBD tem a sua, necessario verificar na doc)'''
 
     cursor.execute(comando,(pessoa.cpf,
                             pessoa.motor,
