@@ -1,0 +1,43 @@
+# Importa o módulo sqlite3, renomeando como "conector"
+# Essa biblioteca permite criar e manipular bancos de dados SQLite em Python.
+import sqlite3 as conector
+
+try:
+    # Abre (ou cria, se não existir) uma conexão com o banco de dados chamado "meu_banco.db"
+    # O arquivo do banco será armazenado na mesma pasta do script.
+    conexao = conector.connect("./meu_banco.db")
+
+    # Cria um cursor, que é o objeto usado para executar comandos SQL no banco.
+    cursor = conexao.cursor()
+
+    # Define o comando SQL que cria a tabela "Pessoa".
+    # Essa tabela terá as seguintes colunas:
+    # - cpf (chave primária, inteiro e obrigatório)
+    # - nome (texto obrigatório)
+    # - nascimento (data obrigatória)
+    # - oculos (booleano obrigatório)
+    comando = '''CREATE TABLE Pessoa (
+                     cpf INTEGER NOT NULL,
+                     nome TEXT NOT NULL,
+                     nascimento DATE NOT NULL,
+                     oculos BOOLEAN NOT NULL,
+                     PRIMARY KEY (cpf)
+                 );'''
+
+    # Executa o comando definido acima (criação da tabela)
+    cursor.execute(comando)
+
+    # Confirma (commita) a transação, gravando as alterações no banco de dados
+    conexao.commit()
+
+# Caso ocorra algum erro relacionado ao banco de dados, ele será capturado aqui
+except conector.DatabaseError as err:
+    print("Erro de banco de dados:", err)
+
+finally:
+    # Fecha corretamente os recursos usados:
+    # - Fecha o cursor (executor de comandos SQL)
+    # - Fecha a conexão com o banco de dados
+    if conexao:
+        cursor.close()
+        conexao.close()
