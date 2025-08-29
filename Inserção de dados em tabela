@@ -1,0 +1,27 @@
+
+Comando:
+    comando = '''INSERT INTO Pessoa(cpf, motor, nome, nascimento, oculos) 
+                 VALUES (4185443366, 187, 'Matheus', '2005-11-23', 1)'''
+
+
+Exemplo:
+
+import sqlite3 as conector
+
+try:
+    conexao = conector.connect("./meu_banco.db")
+    cursor = conexao.cursor()
+
+    comando = '''INSERT INTO Pessoa(cpf, motor, nome, nascimento, oculos) 
+                 VALUES (4185443366, 187, 'Matheus', '2005-11-23', 1)'''
+
+    cursor.execute(comando)
+    conexao.commit()
+
+except conector.DatabaseError as err:
+    print("Erro de banco de dados:", err)
+
+finally:
+    if conexao:
+        cursor.close()
+        conexao.close()
