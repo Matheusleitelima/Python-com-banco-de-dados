@@ -1,0 +1,10 @@
+ # Abertura de conexão e aquisição de cursor
+ conexao = conector.connect("./meu_banco.db", detect_types=conector.PARSE_DECLTYPES)
+ cursor = conexao.cursor()
+
+ # Funções conversoras
+ def conv_bool(dado):
+    return True if dado == 1 else False
+
+ # Registro de conversores
+ conector.register_converter("BOOLEAN", conv_bool)
